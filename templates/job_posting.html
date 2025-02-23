@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HR Dashboard | Jobs Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+    <!-- Header -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">HR Dashboard</h1>
+                        <p class="text-sm text-gray-500">Jobs Management</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="currentDateTime" class="text-sm text-gray-500"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+        <!-- Job Posting Form -->
+        <div class="bg-white shadow-sm rounded-lg border border-gray-200">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-blue-50 rounded-full p-3">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-semibold text-gray-900">Create New Job Posting</h2>
+                    </div>
+                    <button id="toggleForm" class="text-blue-600 hover:text-blue-800">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <form id="jobPostingForm" class="p-6 space-y-6 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Job Title</label>
+                        <input type="text" name="jobTitle" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Department</label>
+                        <input type="text" name="department" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                        <input type="text" name="location" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Employment Type</label>
+                        <select name="employmentType" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="full-time">Full Time</option>
+                            <option value="part-time">Part Time</option>
+                            <option value="contract">Contract</option>
+                            <option value="internship">Internship</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Job Description</label>
+                    <textarea name="jobDescription" rows="4" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Roles and Responsibilities</label>
+                    <textarea name="responsibilities" rows="4" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Required Qualifications</label>
+                    <textarea name="qualifications" rows="4" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                </div>
+
+                <div class="border-t border-gray-200 pt-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-4">Select Platform for Posting</label>
+                    <div class="flex space-x-4">
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="platform" value="linkedin" checked
+                                class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                            <span class="text-sm text-gray-700">LinkedIn</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="platform" value="naukri"
+                                class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                            <span class="text-sm text-gray-700">Naukri</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4">
+                    <button type="reset"
+                        class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                        Reset
+                    </button>
+                    <button type="submit"
+                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Create Job Posting
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Job Listings Table -->
+        <div class="bg-white shadow-sm rounded-lg border border-gray-200">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-semibold text-gray-900">Job Postings History</h2>
+                    <div class="flex space-x-2">
+                        <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                            </svg>
+                        </button>
+                        <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Job ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Position</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Department</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Applications</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- Sample Current Job -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="text-sm font-medium text-gray-900">SDE001</div>
+                                <div class="text-xs text-gray-500">Created on Feb 20, 2024</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="text-sm text-gray-900">Software Engineer</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="text-sm text-gray-900">Engineering</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Active
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex flex-col space-y-1">
+                                    <div class="text-sm text-gray-900">12 total applications</div>
+                                    <div class="text-sm text-green-600">4 shortlisted</div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div class="bg-green-600 h-1.5 rounded-full" style="width: 33%"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-800">View</button>
+                                    <button class="text-red-600 hover:text-red-800">Close</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Sample Past Job -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="text-sm font-medium text-gray-900">UI001</div>
+                                <div class="text-xs text-gray-500">Created on Jan 15, 2024</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="text-sm text-gray-900">UI/UX Designer</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="text-sm text-gray-900">Design</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                    Closed
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex flex-col space-y-1">
+                                    <div class="text-sm text-gray-900">18 total applications</div>
+                                    <div class="text-sm text-green-600">6 shortlisted</div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div class="bg-green-600 h-1.5 rounded-full" style="width: 33%"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <button class="text-blue-600 hover:text-blue-800">View</button>
+                            </td>
+                            </tr>
+                        <!-- Sample Past Job -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="text-sm font-medium text-gray-900">PM001</div>
+                                <div class="text-xs text-gray-500">Created on Jan 5, 2024</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="text-sm text-gray-900">Product Manager</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="text-sm text-gray-900">Product</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                    Closed
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex flex-col space-y-1">
+                                    <div class="text-sm text-gray-900">15 total applications</div>
+                                    <div class="text-sm text-green-600">5 shortlisted</div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div class="bg-green-600 h-1.5 rounded-full" style="width: 33%"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <button class="text-blue-600 hover:text-blue-800">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="px-6 py-4 border-t border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="text-sm text-gray-700">
+                        Showing <span class="font-medium">1</span> to <span class="font-medium">3</span> of <span class="font-medium">3</span> results
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-sm disabled:opacity-50">
+                            Previous
+                        </button>
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-sm disabled:opacity-50">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Toggle Job Posting Form
+        document.getElementById('toggleForm').addEventListener('click', function() {
+            const form = document.getElementById('jobPostingForm');
+            const icon = this.querySelector('svg path');
+            if (form.classList.contains('hidden')) {
+                form.classList.remove('hidden');
+                icon.setAttribute('d', 'M5 15l7-7 7 7');
+            } else {
+                form.classList.add('hidden');
+                icon.setAttribute('d', 'M19 9l-7 7-7-7');
+            }
+        });
+
+        // Form Submission
+        document.getElementById('jobPostingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Show success notification
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300';
+            notification.textContent = `Job posting created successfully for ${data.platform}!`;
+            
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+            
+            // Reset form and hide it
+            e.target.reset();
+            e.target.classList.add('hidden');
+        });
+
+        // Update DateTime
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            document.getElementById('currentDateTime').textContent =
+                'Last updated: ' + now.toLocaleDateString('en-US', options);
+        }
+
+        // Initialize and update datetime
+        updateDateTime();
+        setInterval(updateDateTime, 60000);
+
+        // Close Job Function
+        function closeJob(jobId) {
+            if (confirm("Are you sure you want to close this job posting?")) {
+                // Add your close job logic here
+                showNotification("Job closed successfully!", "success");
+            }
+        }
+
+        // Show Notification Function
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 ${
+                type === "success" ? "bg-green-500" : "bg-red-500"
+            } text-white`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+    </script>
+</body>
+</html>
