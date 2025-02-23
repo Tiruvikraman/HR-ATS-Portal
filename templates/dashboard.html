@@ -164,10 +164,8 @@
                                         <span class="font-medium">{{ job.shortlisted_count }}</span> shortlisted
                                     </div>
                                     <div class="w-full bg-gray-200 rounded-full h-1.5 mt-1">
-                                        <div class="bg-green-600 h-1.5 rounded-full"
-                                        style="width: {{ int(100 * job.shortlisted_count / job.total_candidates) if job.total_candidates else 0 }}%;">
-                                   </div>
-                                                                       </div>
+                                        <div class="bg-green-600 h-1.5 rounded-full" style="width: {{ (job.shortlisted_count / job.total_candidates * 100) if job.total_candidates > 0 else 0 }}%"></div>
+                                    </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4">
@@ -195,7 +193,7 @@
                                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                                         </svg>
-                                        Screen Resumes
+                                        Download Resumes
                                     </button>
 
                                     <!-- Status and Progress Section -->
@@ -332,7 +330,7 @@
                     if (checkbox) {
                         checkbox.classList.add("checkbox-checked");
                         currentBox++;
-                        setTimeout(checkNext, 2500);
+                        setTimeout(checkNext, 250);
                     }
                 }
             }
@@ -373,5 +371,3 @@
     </script>
 </body>
 </html>
-
-
